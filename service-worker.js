@@ -11,39 +11,19 @@ const urlsToCache = [
 ];
 
 // Install the service worker and cache resources
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('Opened cache');
-      return cache.addAll(urlsToCache).catch(error => {
-        console.error('Failed to cache resources:', error); // Logs error if any
-      });
+self.addEventListener("install", installEvent => {
+  installEvent.waitUntil(
+    caches.open(staticDevCoffee).then(cache => {
+      cache.addAll(assets)
     })
-  );
-});
-
-// Activate the service worker and clean up old caches
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
+  )
+})
 
 // Intercept fetch requests and serve cached resources
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+self.addEventListener("fetch", fetchEvent => {
+  fetchEvent.respondWith(
+    caches.match(fetchEvent.request).then(res => {
+      return res || fetch(fetchEvent.request)
     })
-  );
-});
+  )
+})

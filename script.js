@@ -167,12 +167,11 @@ function deleteExpense(index) {
 openDB();
 
 // Register the service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-      console.log('Service Worker registered with scope:', registration.scope);
-    }, function(err) {
-      console.log('Service Worker registration failed:', err);
-    });
-  });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered"))
+      .catch(err => console.log("service worker not registered", err))
+  })
 }
