@@ -1,7 +1,7 @@
 {
   "name": "Expense Tracker",
   "short_name": "Expenses",
-  "start_url": "https://k81h.github.io/expense-tracker/",
+  "start_url": "https://k81h.github.io/expense-tracker/index.html",
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#317EFB",
